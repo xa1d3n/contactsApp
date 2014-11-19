@@ -17,6 +17,15 @@
 				confirmPassword: ''
 			};
 
+			// save user information
+			fbRef.onAuth(function(authData) {
+			  if (authData) {
+			    // save the user's profile into Firebase so we can list users,
+			    // use them in Security and Firebase Rules, and show profiles
+			    fbRef.child('users').child(authData.uid).set(authData);
+			  }
+			});
+
 			$scope.register = function() {
 				var errors = [],
 					user = $scope.registerUser;
@@ -38,9 +47,15 @@
 				var promise = $scope.simpleLogin.$createUser($scope.registerUser.email, $scope.registerUser.password);
 
 				promise.then(function(user) {
-					console.log(user);
-					// login successful - route to home page
-					$window.location.href = '/#/home';
+
+					// login user
+					$scope.simpleLogin.$login('password', {
+						email: $scope.registerUser.email,
+						password: $scope.registerUser.password
+					});
+
+					// login successful - route to contacts page
+					$window.location.href = '/#/contacts';
 				}, function(error) {
 					console.error(error);
 				});

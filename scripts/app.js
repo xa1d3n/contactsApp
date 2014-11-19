@@ -54,4 +54,5 @@ angular
   })
   .constant('FBURL', 'https://af-contacts.firebaseio.com/')// firebase url
   .constant('MSGURL', 'https://af-contacts.firebaseio.com/contacts')// messages url
+  .constant('OPTIONSURL', 'https://af-contacts.firebaseio.com/options') // user settings url
   .constant('loginRedirectPath', '/login'); // redirect to if not loggedin

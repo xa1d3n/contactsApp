@@ -23,7 +23,8 @@ angular.module('ContactsApp')
 
   		$scope.contact = $scope.getContactById(id);
   		$scope.delete = function() {
-  			$scope.contact.$delete();
+  			//$scope.contact.$delete();
+        ContactsService.removeContact($scope.contact.$id);
   			$location.url('/contacts');
 
   		};

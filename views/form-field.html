@@ -3,10 +3,10 @@
 	</label>
 	<div class='col-sm-6' ng-switch='required'> 
 
-		<input ng-switch-when='true' ng-model='record[field][0]' type='{{ record[field][1] }}' class='form-control' required ng-change='update()' ng-blur='blurUpdate()' />
+		<input ng-switch-when='true' ng-model='record[field][0]' type='{{ record[field][1] }}' class='form-control' required ng-change='update()' ng-blur='blurUpdate(field, record[field][0], record, record.$id)' />
 
 		<div class='input-group' ng-switch-default>
-			<input ng-model='record[field][0]' type='{{ record[field][1] }}' class='form-control' ng-change='update()' ng-blur='blurUpdate()' />
+			<input ng-model='record[field][0]' type='{{ record[field][1] }}' class='form-control' ng-change='update()' ng-blur='blurUpdate(field, record[field][0], record.$id)' />
 			<span class='input-group-btn'>
 				<button class='btn btn-default' ng-click='remove(field)'><span class='glyphicon glyphicon-remove-circle'></span></button>
 			</span>

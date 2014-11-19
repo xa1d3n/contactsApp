@@ -9,7 +9,7 @@
 
 			// redirect
 			//$window.location.href = '/#/';
-			$location.path('/');
 			$window.location.reload();
+			$location.path('/');
 		});
 }(window.angular));

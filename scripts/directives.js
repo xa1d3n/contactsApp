@@ -12,7 +12,7 @@ angular.module('ContactsApp')
         tel: ['Phone Number', 'should be a phone number'],
         color: ['Color', 'should be a color']
 	})
-	.directive('formField', function($timeout, FieldTypes) {
+	.directive('formField', function($timeout, FieldTypes, ContactsService) {
 		return {
 			restrict: 'EA',
 			templateUrl: 'views/form-field.html',
@@ -30,16 +30,18 @@ angular.module('ContactsApp')
 				$scope.types = FieldTypes;
 
 				$scope.remove = function(field) {
-					delete $scope.record[field];
+					//delete $scope.record[field];
+					ContactsService.removeField($scope.record.$id, field);
 					$scope.blurUpdate();
 				};
 
-				$scope.blurUpdate = function() {
+				$scope.blurUpdate = function(field, text, record, id) {
 					if ($scope.live !== 'false') {
-						$scope.record.$update(function (updatedRecord){
-							$scope.record = updatedRecord;
-						});
-					}
+
+						if (field && text && id) {
+							ContactsService.updateContact(field, text, id);
+						}
+					} 
 				};
 
 				var saveTimeout;
@@ -52,7 +54,7 @@ angular.module('ContactsApp')
 			}
 		};
 	})
-	    .directive('newField', function ($filter, FieldTypes) {
+	    .directive('newField', function ($filter, FieldTypes, ContactsService) {
         return {
             restrict: 'EA',
             templateUrl: 'views/new-field.html',
@@ -78,12 +80,14 @@ angular.module('ContactsApp')
 
                 $scope.add = function () {
                     if (form.newField.$valid) {
-                        $scope.record[$filter('camelCase')($scope.field.name)] = [$scope.field.value, $scope.field.type];
+                        $scope.record[$filter('camelCase')($scope.field.name)] = [$scope.field.value, $scope.field.type, $scope.field.name];
                         $scope.remove();
                         if ($scope.live !== 'false') {
-                            $scope.record.$update(function (updatedRecord) {
-                                $scope.record = updatedRecord;
-                            });
+
+                                if ($scope.record.$id && $scope.field.name && $scope.field.value && $scope.field.type) {
+                                	ContactsService.addField($scope.record.$id, $scope.field.name, $scope.field.value, $scope.field.type );
+                                	$scope.remove();
+                            	}
                         }
                     }
                 };

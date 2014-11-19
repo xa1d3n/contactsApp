@@ -5,24 +5,41 @@ angular.module('ContactsApp')
   		// new contact data
 		$rootScope.PAGE = "new";
 		$scope.contact = {
-			firstName: ['', 'text'],
-			lastName: ['', 'text'],
-			email: ['', 'email'],
-			homePhone: ['', 'tel'],
-			cellPhone: ['', 'tel'],
-			birthday: ['', 'date'],
-			website: ['', 'url'],
-			address: ['', 'text']
+			firstName: ['', 'text', 'firstName'],
+			lastName: ['', 'text', 'lastName'],
+			email: ['', 'email', 'email'],
+			homePhone: ['', 'tel', 'homePhone'],
+			cellPhone: ['', 'tel', 'cellPhone'],
+			birthday: ['', 'date', 'birthday'],
+			website: ['', 'url', 'website'],
+			address: ['', 'text', 'address']
+		};
+
+		$scope.options = {
+			firstName: ['firstName', 'true'],
+			lastName: ['lastName','true'],
+			email: ['email', 'false'],
+			homePhone: ['homePhone', 'false'],
+			cellPhone: ['cellPhone', 'false'],
+			birthday: ['birthday', 'false'],
+			website: ['website', 'false'],
+			address: ['address', 'false']
 		};
 
 		// save contact; perform validation
 		$scope.save = function() {
 			// newContact is name of form
-			console.log($scope.contact.$invalid);
 			if ($scope.contact.$invalid) {
 				$scope.$broadcast('record:invalid');
 			} else {
-				ContactsService.add($scope.contact);
+				for (var i = 0; i < $scope.contact.length; i++){
+					$scope.contact
+				}
+
+
+				ContactsService.addSettingFields($scope.options);
+
+				ContactsService.addContact($scope.contact);
 				//$scope.contact.$save();
 				$location.url('/contacts');
 			}

@@ -1,9 +1,10 @@
 <h2> Settings </h2>
 <p> Choose fields to display in the list view: </p>
 
-<div class='checkbox' ng-repeat='field in allFields'>
+<div class='checkbox' ng-repeat='(k, v) in settings'>
+	<!--<p>{{ setting.userName }}</p> -->
 	<label>
-		<input type='checkbox' value='{{field}}' ng-checked='{{fields.indexOf(field) > -1}}' ng-click='toggle(field)' />
-		{{ field | labelCase }}
+		<input name='{{ v[0] }}' type='checkbox' value='{{v[0]}}' ng-checked='{{v[1]}}' ng-click='toggle(v[0], v[1])' />
+		{{ v[0] | labelCase}}
 	</label>
 </div>

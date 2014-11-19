@@ -8,6 +8,7 @@
 			var fbRef = new Firebase(FBURL);
 			$scope.simpleLogin = $firebaseSimpleLogin(fbRef);
 			$scope.errors = [];
+			$rootScope.user;
 
 			$scope.user = {
 				email: '',
@@ -38,8 +39,6 @@
 				});
 
 				promise.then(function(user){
-					// TODO: should put user in rootstore or cookie
-					console.log(user);
 					// rootScope is parent scope from which all othe scopes inherit from
 					$rootScope.user = user;
 					// route to home page

@@ -24,3 +24,8 @@ angular.module('ContactsApp')
 			return result;	
 		};
 	})
+	.filter('filterByUser', function() {
+		return function (input) {
+			console.log(input);
+		};
+	})
