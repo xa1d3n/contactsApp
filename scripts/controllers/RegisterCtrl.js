@@ -3,7 +3,7 @@
 	'use strict';
 	angular.module('ContactsApp')
 		// dependencies
-		.controller('RegisterCtrl', function($scope, $firebaseSimpleLogin, FBURL, $window) {
+		.controller('RegisterCtrl', function($scope, $firebaseSimpleLogin, FBURL, $location, $window) {
 			// firebase connection
 			var fbRef = new Firebase(FBURL);
 			// allows for login and logout of users
@@ -55,7 +55,7 @@
 					});
 
 					// login successful - route to contacts page
-					$window.location.href = '/#/contacts';
+					$location.path('/contacts');
 				}, function(error) {
 					console.error(error);
 				});
