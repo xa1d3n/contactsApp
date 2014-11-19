@@ -48,6 +48,9 @@
 					if (error.code === 'INVALID_EMAIL') {
 						$scope.errors.push('The email is invalid');
 					}
+					if (error.code === 'INVALID_USER') {
+						$scope.errors.push('The email is invalid');
+					}
 					if (error.code === 'INVALID_PASSWORD') {
 						$scope.errors.push('The password is invalid');
 					}
