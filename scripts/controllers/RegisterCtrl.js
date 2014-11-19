@@ -3,7 +3,7 @@
 	'use strict';
 	angular.module('ContactsApp')
 		// dependencies
-		.controller('RegisterCtrl', function($scope, $firebaseSimpleLogin, FBURL, $location, $window) {
+		.controller('RegisterCtrl', function($scope, $firebaseSimpleLogin, FBURL, $window, $location) {
 			// firebase connection
 			var fbRef = new Firebase(FBURL);
 			// allows for login and logout of users
@@ -49,13 +49,17 @@
 				promise.then(function(user) {
 
 					// login user
-					$scope.simpleLogin.$login('password', {
+					var promise =	$scope.simpleLogin.$login('password', {
 						email: $scope.registerUser.email,
 						password: $scope.registerUser.password
 					});
 
+					promise.then(function(x){
 					// login successful - route to contacts page
 					$location.path('/contacts');
+					});
+
+					
 				}, function(error) {
 					console.error(error);
 				});
